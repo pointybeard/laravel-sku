@@ -22,10 +22,12 @@ class SkuService
                 throw new MaxAttemptsExceededException("Failed to generate a unique SKU after {$attempts} attempts.");
             }
 
+            $result = '';
+
             $sku = (new Parser(new Lexer($pattern), new Scope, new Scope))
                 ->parse()
                 ->getResult()
-                ->generate($result = '', new SimpleRandom);
+                ->generate($result, new SimpleRandom);
 
             $current_attempt++;
         } while ($validator && ! $validator($sku));

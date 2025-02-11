@@ -15,11 +15,11 @@ trait HasSku
 
             $options = $model->getSkuOptions();
 
-            if (! $model->{$options->column}) {
-                $model->{$options->column} = Sku::generate(
+            if (! $model->{$options->target}) {
+                $model->{$options->target} = Sku::generate(
                     pattern: $options->pattern,
                     validator: fn (string $sku): bool => $options->unique
-                        ? ! $model->where($options->column, $sku)->exists()
+                        ? ! $model->where($options->target, $sku)->exists()
                         : true
                 );
             }
@@ -32,7 +32,7 @@ trait HasSku
 
         return SkuOptions::from([
             'pattern' => $this->skuPattern ?? $options['pattern'],
-            'column' => $this->skuColumn ?? $options['column'],
+            'target' => $this->skuTarget ?? $options['target'],
             'unique' => $this->skuUnique ?? $options['unique'],
         ]);
     }

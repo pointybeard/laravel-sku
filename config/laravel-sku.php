@@ -6,7 +6,7 @@ return [
     'defaults' => [
         'pattern' => 'SKU-[0-9]{5}-[A-Z]{1}',
 
-        'column' => 'sku',
+        'target' => 'sku',
 
         'unique' => true,
     ],
